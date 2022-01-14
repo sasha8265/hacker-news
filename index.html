@@ -49,6 +49,29 @@
   </div>
 </nav>
 
+<!-- Submit new story form -->
+<section class="submit-story-container container hidden" id="submit-story-container">
+   <form action="#" id="new-story-form">
+      <h4>Add a Story</h4>
+      <div>
+         <label for="new-story-author">author</label>
+         <input type="text" id="new-story-author" placeholder="author name" required>
+      </div>
+      <div>
+         <label for="new-story-title">story</label>
+         <input type="text" id="new-story-title" placeholder="story title" required>
+      </div>
+      <div>
+         <label for="new-story-url">label</label>
+         <input type="url" id="new-story-url" placeholder="story url" required>
+      </div>
+      <button type="submit">submit</button>
+   </form>
+</section>
+
+<hr>
+
+
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
 
@@ -101,29 +124,6 @@
   </form>
 </section>
 
-<!-- Submit new story form -->
-<section class="stories-container container">
-   <form 
-      action="#"
-      id="new-story-form"
-      class="hidden"
-      >
-      <h4>Add a Story</h4>
-      <div>
-         <label for="new-story-author">author</label>
-         <input type="text" id="new-story-author" placeholder="author name" required>
-      </div>
-      <div>
-         <label for="new-story-title">story</label>
-         <input type="text" id="new-story-title" placeholder="story title" required>
-      </div>
-      <div>
-         <label for="new-story-url">label</label>
-         <input type="url" id="new-story-url" placeholder="story url" required>
-      </div>
-      <button type="submit">submit</button>
-   </form>
-</section>
 
 <!-- Library JS & our JS -->
 <script src="https://unpkg.com/jquery"></script>
