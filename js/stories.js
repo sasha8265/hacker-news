@@ -67,5 +67,6 @@ async function addNewStoryToPage(evt) {
 
    const $newStory = generateStoryMarkup(newStory);
    $allStoriesList.prepend($newStory);
+   $('#new-story-form').trigger("reset")
 }
 $("#new-story-form").on("submit", addNewStoryToPage);
