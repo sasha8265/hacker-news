@@ -23,9 +23,9 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
-  getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+   // UNIMPLEMENTED: complete this function!
+   getHostName() {
+      return new URL(this.url).host;
   }
 }
 
