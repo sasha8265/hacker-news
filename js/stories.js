@@ -76,10 +76,21 @@ $("#new-story-form").on("submit", addNewStoryToPage);
 
 
 /** FAVORITE STORIES - on icon click, add story to favorites list*/
-function addToFavorites(evt) {
-   console.debug("addToFavorites");
+function putFavoritesOnPage(evt) {
+   console.debug("putFavoritesOnPage");
 
+   $favoriteStories.empty();
+
+   if (currentUser.favorites.length === 0) {
+      $favoriteStories.append("<h5>No Favorites Added Yet!");
+   } else {
+      for (let story of currentUser.favorites) {
+         const $story = generateStoryMarkup(story);
+         $favoriteStories.append($story);
+      }
+   }
+   $favoriteStories.show();
 }
 
 
-/** FAVORITE STORIES */
+/** REMOVE FAVORITE STORIES */

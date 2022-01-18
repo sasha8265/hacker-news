@@ -91,6 +91,17 @@ class StoryList {
 
      return story;
   }
+   
+   async removeStory(user, storyId) {
+      const token = user.loginToken;
+      await axios({
+         method: "DELETE",
+         url: `${BASE_URL}/stories/${storyId}`,
+         data: { token: user.loginToken }
+      });
+
+      
+   }
 }
 
 
@@ -208,4 +219,13 @@ class User {
       return null;
     }
   }
+   
+   addFavorite(story) {
+
+   }
+
+   removeFavorite(story) {
+
+   }
 }
+
