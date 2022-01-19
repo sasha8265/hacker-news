@@ -22,10 +22,12 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
-  const hostName = story.getHostName();
-  return $(`
+   const hostName = story.getHostName();
+   const showHeart = Boolean(currentUser);
+
+   return $(`
       <li id="${story.storyId}">
-         <i class="fav-icon far fa-heart"></i>
+      ${showHeart ? heartIconType(story, currentUser) : ""}
          <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
          </a>
@@ -92,6 +94,13 @@ function putFavoritesOnPage(evt) {
    $favoriteStories.show();
 }
 
+//SET UP HEART ICON HTML DEPENDING ON CLASS
+function heartIconType(story, user) {
+   const isFavorite = user.checkIfFavorite(story);
+   const heartType = isFavorite ? "fas" : "far";
+   return `<i class="fav-icon ${heartType} fa-heart"></i>`
+}
+
 
 /** TOGGLE FAVORITE / UNFAVORITE STORIES */
 async function toggleFavoriteState(evt) {
@@ -106,11 +115,11 @@ async function toggleFavoriteState(evt) {
 
    if ($target.hasClass("fas")){
       await currentUser.removeFavorite(story);
-      $target.closest("i").toggleClass("fas far fav-selected");
+      $target.closest("i").toggleClass("fas far").removeClass("fav-selected");
    } else {
       //not a favorite - add to favorites and change empty icon to filled
       await currentUser.addFavorite(story);
-      $target.closest("i").toggleClass("fas far fav-selected");
+      $target.closest("i").toggleClass("fas far").addClass("fav-selected");
    }
 }
 $allStoriesList.on("click", ".fav-icon", toggleFavoriteState);

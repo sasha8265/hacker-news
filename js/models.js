@@ -247,5 +247,11 @@ class User {
       });
    };
 
+   checkIfFavorite(story) {
+      return this.favorites.some(function (s) {
+         s.storyId === story.storyId;
+      });
+   }
+
 }
 
