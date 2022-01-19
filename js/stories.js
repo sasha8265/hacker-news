@@ -74,9 +74,10 @@ async function addNewStoryToPage(evt) {
    const $newStory = generateStoryMarkup(newStory);
    $allStoriesList.prepend($newStory);
    
-   $('#new-story-form').trigger("reset")
+   $newStoryForm.trigger("reset").slideUp(400);
+
 }
-$("#new-story-form").on("submit", addNewStoryToPage);
+$newStoryForm.on("submit", addNewStoryToPage);
 
 
 /** USER STORIES - on nav click, displays user created stories*/
