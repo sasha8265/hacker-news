@@ -23,7 +23,6 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
-   // UNIMPLEMENTED: complete this function!
    getHostName() {
       return new URL(this.url).host;
   }
@@ -97,7 +96,7 @@ class StoryList {
       await axios({
          method: "DELETE",
          url: `${BASE_URL}/stories/${storyId}`,
-         data: { token: user.loginToken }
+         data: { token }
       });
 
 

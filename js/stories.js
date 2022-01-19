@@ -23,6 +23,8 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
    const hostName = story.getHostName();
+
+   //checks if there is a user logged in and returns true/false
    const showHeart = Boolean(currentUser);
 
    return $(`
@@ -54,11 +56,11 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-/** Gets new story data from the #new-story-form on submit, and puts on page. */
+/** USER STORIES - Gets new story data from the #new-story-form on submit, and puts on main page. */
 
 async function addNewStoryToPage(evt) {
    console.debug("addNewStoryToPage");
-   evt.preventDefault();
+   // evt.preventDefault();
 
    const title = $("#new-story-title").val();
    const author = $("#new-story-author").val();
@@ -77,7 +79,26 @@ async function addNewStoryToPage(evt) {
 $("#new-story-form").on("submit", addNewStoryToPage);
 
 
-/** FAVORITE STORIES - on icon click, add story to favorites list*/
+/** USER STORIES - on nav click, displays user created stories*/
+function putUserStoriesOnPage(evt) {
+   console.debug("putUserStoriesOnPage");
+
+   $userStories.empty();
+
+   if (currentUser.ownStories.length === 0) {
+      $userStories.append("<h5>You haven't added any stories yet!");
+   } else {
+      for (let story of currentUser.ownStories) {
+         const $story = generateStoryMarkup(story);
+         $userStories.append($story);
+      }
+   }
+   $userStories.show();
+}
+
+
+
+/** FAVORITE STORIES - on icon click, add story to favorites page*/
 function putFavoritesOnPage(evt) {
    console.debug("putFavoritesOnPage");
 
@@ -94,7 +115,7 @@ function putFavoritesOnPage(evt) {
    $favoriteStories.show();
 }
 
-//SET UP HEART ICON HTML DEPENDING ON CLASS
+/** SET UP HEART ICON HTML DEPENDING ON EXISTING CLASS */
 function heartIconType(story, user) {
    const isFavorite = user.checkIfFavorite(story);
    const heartType = isFavorite ? "fas" : "far";
@@ -115,11 +136,11 @@ async function toggleFavoriteState(evt) {
 
    if ($target.hasClass("fas")){
       await currentUser.removeFavorite(story);
-      $target.closest("i").toggleClass("fas far").removeClass("fav-selected");
+      $target.closest("i").toggleClass("fas far");
    } else {
       //not a favorite - add to favorites and change empty icon to filled
       await currentUser.addFavorite(story);
-      $target.closest("i").toggleClass("fas far").addClass("fav-selected");
+      $target.closest("i").toggleClass("fas far");
    }
 }
 $allStoriesList.on("click", ".fav-icon", toggleFavoriteState);
