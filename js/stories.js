@@ -93,4 +93,24 @@ function putFavoritesOnPage(evt) {
 }
 
 
-/** REMOVE FAVORITE STORIES */
+/** TOGGLE FAVORITE / UNFAVORITE STORIES */
+async function toggleFavoriteState(evt) {
+   console.debug("toggleFavoriteState");
+
+   const $target = $(evt.target);
+   const $closestStory = $target.closest("li");
+   const storyId = $closestStory.attr("id");
+   const story = storyList.stories.find(function (s) {
+      return s.storyId === storyId;
+   });
+
+   if ($target.hasClass("fas")){
+      await currentUser.removeFavorite(story);
+      $target.closest("i").toggleClass("fas far fav-selected");
+   } else {
+      //not a favorite - add to favorites and change empty icon to filled
+      await currentUser.addFavorite(story);
+      $target.closest("i").toggleClass("fas far fav-selected");
+   }
+}
+$allStoriesList.on("click", ".fav-icon", toggleFavoriteState);

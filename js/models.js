@@ -100,7 +100,7 @@ class StoryList {
          data: { token: user.loginToken }
       });
 
-      
+
    }
 }
 
@@ -220,12 +220,32 @@ class User {
     }
   }
    
-   addFavorite(story) {
+   async addFavorite(story) {
+      this.favorites.push(story);
+      await this.addOrRemoveFavorite("add", story)
+   };
 
+   async removeFavorite(story) {
+      this.favorites = this.favorites.filter(function (s) {
+         return s.storyId !== story.storyId;
+      });
+      await this.addOrRemoveFavorite("remove", story);
    }
 
-   removeFavorite(story) {
+   async addOrRemoveFavorite(newState, story) {
+      let method;
+      if (newState === "add") {
+         method = "POST";
+      } else { method = "DELETE" };
 
-   }
+      const token = this.loginToken;
+
+      await axios({
+         url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+         method: method,
+         data: { token }
+      });
+   };
+
 }
 
