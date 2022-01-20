@@ -247,9 +247,7 @@ class User {
    };
 
    checkIfFavorite(story) {
-      return this.favorites.some(function (s) {
-         s.storyId === story.storyId;
-      });
+      return this.favorites.some(s => s.storyId === story.storyId);
    }
 
 }
