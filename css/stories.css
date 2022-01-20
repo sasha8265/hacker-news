@@ -49,6 +49,11 @@
 	color: red;
 }
 
-.fas {
+.fas.fa-heart {
+	color: red;
+}
+
+.fas.fa-trash-alt:hover {
+	transition: 400ms;
 	color: red;
 }

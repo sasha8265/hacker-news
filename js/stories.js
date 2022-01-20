@@ -19,7 +19,7 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(story) {
+function generateStoryMarkup(story, showDeleteButton = false) {
   // console.debug("generateStoryMarkup", story);
 
    const hostName = story.getHostName();
@@ -29,6 +29,7 @@ function generateStoryMarkup(story) {
 
    return $(`
       <li id="${story.storyId}">
+      ${showDeleteButton ? deleteButtonHTML() : ""}
       ${showHeart ? heartIconType(story, currentUser) : ""}
          <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
@@ -90,12 +91,32 @@ function putUserStoriesOnPage(evt) {
       $userStories.append("<h5>You haven't added any stories yet!");
    } else {
       for (let story of currentUser.ownStories) {
-         const $story = generateStoryMarkup(story);
+         const $story = generateStoryMarkup(story, true);
          $userStories.append($story);
       }
    }
    $userStories.show();
 }
+
+/** SET UP TRASHCAN ICON HTML */
+function deleteButtonHTML() {
+   return `<i class="fas fa-trash-alt delete-icon"></i>`
+}
+
+
+/** DELETE USER STORY ON CLICK OF TRASH ICON */
+async function deleteStory(evt) {
+   console.debug("deleteStory");
+
+   const $target = $(evt.target);
+   const $closestStory = $target.closest("li");
+   const storyId = $closestStory.attr("id");
+
+   await storyList.removeStory(currentUser, storyId);
+   await putUserStoriesOnPage();
+}
+
+$userStories.on("click", ".delete-icon", deleteStory);
 
 
 
@@ -115,6 +136,8 @@ function putFavoritesOnPage(evt) {
    }
    $favoriteStories.show();
 }
+
+
 
 /** SET UP HEART ICON HTML DEPENDING ON EXISTING CLASS */
 function heartIconType(story, user) {

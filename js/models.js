@@ -99,7 +99,9 @@ class StoryList {
          data: { token }
       });
 
-
+      this.stories = this.stories.filter(story => story.storyId !== storyId);
+      user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+      user.favorites = user.favorites.filter(s => s.storyId !== storyId);
    }
 }
 
@@ -225,9 +227,7 @@ class User {
    };
 
    async removeFavorite(story) {
-      this.favorites = this.favorites.filter(function (s) {
-         return s.storyId !== story.storyId;
-      });
+      this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
       await this.addOrRemoveFavorite("remove", story);
    }
 
