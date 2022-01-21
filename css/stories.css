@@ -37,7 +37,7 @@
 	display: block;
 }
 
-/* Favorite Icon */
+/* FAVORITE Icon */
 
 .fav-icon {
 	color: gray;
@@ -52,6 +52,8 @@
 .fas.fa-heart {
 	color: red;
 }
+
+/* DELETE Icon */
 
 .fas.fa-trash-alt:hover {
 	transition: 400ms;

@@ -32,7 +32,7 @@ function updateNavOnLogin() {
   $(".main-nav-links").show();
   $navLogin.hide();
   $navLogOut.show();
-  $navUserProfile.text(`${currentUser.username}`).show();
+  $navUser.text(`${currentUser.username}`).show();
 }
 
 //Open the submit story form when user clicks on submit in nav bar
@@ -53,7 +53,7 @@ function navFavorites(evt) {
    hidePageComponents();
    putFavoritesOnPage();
 }
-$body.on("click", "#nav-favorites", navFavorites);
+$navFavorites.on("click", navFavorites)
 
 
 //Show the User submitted stories list when user clicks on my stories in nav bar
@@ -63,4 +63,14 @@ function navMyStories(evt) {
    hidePageComponents();
    putUserStoriesOnPage();
 }
-$("#nav-user-stories").on("click", navMyStories);
+$navUserStories.on("click", navMyStories);
+
+
+//Show User profile info on click of username
+
+function navProfileClick(evt) {
+   console.debug("navProfileClick");
+   hidePageComponents();
+   $navUserProfileSection.show();
+}
+$navUser.on("click", navProfileClick);

@@ -65,12 +65,9 @@ function logout(evt) {
 $navLogOut.on("click", logout);
 
 /******************************************************************************
- * Storing/recalling previously-logged-in-user with localStorage
- */
+ * Storing/recalling previously-logged-in-user with localStorage*/
 
-/** If there are user credentials in local storage, use those to log in
- * that user. This is meant to be called on page load, just once.
- */
+/** If there are user credentials in local storage, use those to log in that user. This is meant to be called on page load, just once*/
 
 async function checkForRememberedUser() {
   console.debug("checkForRememberedUser");
@@ -108,9 +105,19 @@ function saveUserCredentialsInLocalStorage() {
  */
 
 function updateUIOnUserLogin() {
-  console.debug("updateUIOnUserLogin");
+   console.debug("updateUIOnUserLogin");
 
-  $allStoriesList.show();
+   $allStoriesList.show();
 
-  updateNavOnLogin();
+   updateNavOnLogin();
+   generateUserProfile()
+}
+
+function generateUserProfile() {
+   console.debug("generateUserProfile");
+
+   $("#profile-name").text(currentUser.name);
+   $("#profile-username").text(currentUser.username);
+   $("#profile-number-of-stories").text(currentUser.ownStories.length);
+   $("#profile-account-date").text(currentUser.createdAt.slice(0,10));
 }

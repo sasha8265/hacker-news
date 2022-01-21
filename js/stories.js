@@ -104,7 +104,7 @@ function deleteButtonHTML() {
 }
 
 
-/** DELETE USER STORY ON CLICK OF TRASH ICON */
+/** DELETE USER STORY - on trash icon click, delete the user story and regenerate the user story list */
 async function deleteStory(evt) {
    console.debug("deleteStory");
 
@@ -121,7 +121,7 @@ $userStories.on("click", ".delete-icon", deleteStory);
 
 
 /** FAVORITE STORIES - on icon click, add story to favorites page*/
-function putFavoritesOnPage(evt) {
+function putFavoritesOnPage() {
    console.debug("putFavoritesOnPage");
 
    $favoriteStories.empty();
@@ -139,7 +139,7 @@ function putFavoritesOnPage(evt) {
 
 
 
-/** SET UP HEART ICON HTML DEPENDING ON EXISTING CLASS */
+/** SET UP HEART ICON HTML - depending on favorite status */
 function heartIconType(story, user) {
    const isFavorite = user.checkIfFavorite(story);
    const heartType = isFavorite ? "fas" : "far";
